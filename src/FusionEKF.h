@@ -40,10 +40,14 @@ private:
 
   // tool object used to compute Jacobian and RMSE
   Tools tools;
+  // measurement noise covariance matrix for laser measurement
   Eigen::MatrixXd R_laser_;
+  // measurement noise covariance matrix for radar measurement
   Eigen::MatrixXd R_radar_;
   Eigen::MatrixXd H_laser_;
   Eigen::MatrixXd Hj_;
+  
+  Eigen::MatrixXd P_;
 };
 
 #endif /* FusionEKF_H_ */
