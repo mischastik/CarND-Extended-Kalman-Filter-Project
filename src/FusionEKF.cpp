@@ -129,7 +129,6 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack)
        q_20, 0, dt_sq * n_ax_sq, 0,
        0, q_31, 0, dt_sq * n_ay_sq;
 
-   ekf_.F_ = MatrixXd(4, 4);
    ekf_.F_(0, 2) = ekf_.F_(1, 3) = dt;
 
    ekf_.Predict();
