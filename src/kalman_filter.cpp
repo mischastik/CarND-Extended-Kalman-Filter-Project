@@ -11,7 +11,8 @@ KalmanFilter::KalmanFilter() {}
 KalmanFilter::~KalmanFilter() {}
 
 void KalmanFilter::Init(VectorXd &x_in, MatrixXd &P_in, MatrixXd &F_in,
-                        MatrixXd &H_in, MatrixXd &R_in, MatrixXd &Q_in) {
+                        MatrixXd &H_in, MatrixXd &R_in, MatrixXd &Q_in)
+{
   x_ = x_in;
   P_ = P_in;
   F_ = F_in;
@@ -20,13 +21,15 @@ void KalmanFilter::Init(VectorXd &x_in, MatrixXd &P_in, MatrixXd &F_in,
   Q_ = Q_in;
 }
 
-void KalmanFilter::Predict() {
+void KalmanFilter::Predict()
+{
   x_ = F_ * x_;
 	MatrixXd Ft = F_.transpose();
 	P_ = F_ * P_ * Ft + Q_;
 }
 
-void KalmanFilter::Update(const VectorXd &z) {
+void KalmanFilter::Update(const VectorXd &z)
+{
   VectorXd z_pred = H_ * x_;
 	VectorXd y = z - z_pred;
 	MatrixXd Ht = H_.transpose();
@@ -42,17 +45,18 @@ void KalmanFilter::Update(const VectorXd &z) {
 	P_ = (I - K * H_) * P_;
 }
 
-void KalmanFilter::UpdateEKF(const VectorXd &z) {
-  // TODO: Complete
+void KalmanFilter::UpdateEKF(const VectorXd &z)
+{
   double px = x_[0];
   double py = x_[1];
   double vx = x_[2];
   double vy = x_[3];
 
-  VectorXd z_pred = VectorXd(3);
+  VectorXd z_pred(3);
   double radius = sqrt(px * px + py + py);
-  // TODO: Check radius for 0.
-  z_pred << radius,  atan2(py, px), (px * vx + py * vy) / radius;
+  // Check radius for 0.
+  double d_rho = (fabs(radius < 0.001))?0:((px * vx + py * vy) / radius);
+  z_pred << radius,  atan2(py, px), d_rho;
 	VectorXd y = z - z_pred;
 	MatrixXd Ht = H_.transpose();
 	MatrixXd S = H_ * P_ * Ht + R_;

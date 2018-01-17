@@ -45,8 +45,6 @@ private:
   // measurement noise covariance matrix for radar measurement
   Eigen::MatrixXd R_radar_;
   Eigen::MatrixXd H_laser_;
-  Eigen::MatrixXd Hj_;
-  
   Eigen::MatrixXd P_;
 };
 
