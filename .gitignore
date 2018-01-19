@@ -7,6 +7,8 @@ build/
 # editor config
 .vscode/
 
+ide_profiles/
+
 # Xcode
 *.pbxuser
 !default.pbxuser
