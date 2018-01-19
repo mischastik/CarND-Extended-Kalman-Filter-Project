@@ -147,6 +147,10 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack)
 
   if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR)
   {
+	if (fabs(ekf_.x_(1)) < 0.25)
+	{
+		return; // simply discard radar measurements in the critical region around the origin to avoid numerical issues.
+	}
     // Radar updates
     // Set up measurement noise matrix R 
     ekf_.H_ = tools.CalculateJacobian(ekf_.x_);
