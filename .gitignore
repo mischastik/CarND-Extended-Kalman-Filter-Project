@@ -7,7 +7,7 @@ build/
 # editor config
 .vscode/
 
-ide_profiles/
+ide_profiles/VisualStudio/.vs
 
 # Xcode
 *.pbxuser
