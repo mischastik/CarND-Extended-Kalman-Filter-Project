@@ -77,31 +77,30 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack)
 
     if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR)
     {
-      /**
-      Convert radar from polar to cartesian coordinates and initialize state.
-      */
-      double rho = measurement_pack.raw_measurements_[0];
-      double phi = measurement_pack.raw_measurements_[1];
-      ekf_.x_(0) = rho * cos(phi);
-      ekf_.x_(1) = rho * sin(phi);
-	  ekf_.x_(2) = 0;
-	  ekf_.x_(3) = 0;
+		/**
+		Convert radar from polar to cartesian coordinates and initialize state.
+		*/
+		double rho = measurement_pack.raw_measurements_[0];
+		double phi = measurement_pack.raw_measurements_[1];
+		ekf_.x_(0) = rho * cos(phi);
+		ekf_.x_(1) = rho * sin(phi);
+		ekf_.x_(2) = 0;
+		ekf_.x_(3) = 0;
     }
     else if (measurement_pack.sensor_type_ == MeasurementPackage::LASER)
     {
-		return;
 		/**
-      Initialize state.
-      */
-      ekf_.x_(0) = measurement_pack.raw_measurements_[0];
-      ekf_.x_(1) = measurement_pack.raw_measurements_[1];
-	  ekf_.x_(2) = 0;
-	  ekf_.x_(3) = 0;
+		Initialize state.
+		*/
+		ekf_.x_(0) = measurement_pack.raw_measurements_[0];
+		ekf_.x_(1) = measurement_pack.raw_measurements_[1];
+		ekf_.x_(2) = 0;
+		ekf_.x_(3) = 0;
 	}
 
-    // done initializing, no need to predict or update
-    is_initialized_ = true;
-    return;
+	// done initializing, no need to predict or update
+	is_initialized_ = true;
+	return;
   }
 
   /*****************************************************************************
@@ -158,11 +157,10 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack)
   } 
   else // laser measurement
   {
-	  return;
-	  // Laser updates
-    ekf_.H_ = H_laser_;
-    ekf_.R_ = R_laser_;
-    ekf_.Update(measurement_pack.raw_measurements_);
+	// Laser updates
+	ekf_.H_ = H_laser_;
+	ekf_.R_ = R_laser_;
+	ekf_.Update(measurement_pack.raw_measurements_);
   }
 
   // print the output
