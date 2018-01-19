@@ -1,6 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
 #include <uWS/uWS.h>
-#undef _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include "json.hpp"
 #include <math.h>

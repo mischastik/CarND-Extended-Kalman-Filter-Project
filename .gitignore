@@ -24,3 +24,5 @@ xcuserdata/
 *.xcscmblueprint
 ide_profiles/xcode/Debug/
 ide_profiles/xcode/ExtendedKF.build/
+/ide_profiles/products/msbuild.windows.x64.v141.Debug
+/products/cmake.msbuild.windows.x64.v141

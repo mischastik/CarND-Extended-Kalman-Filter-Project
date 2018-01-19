@@ -46,27 +46,27 @@ VectorXd Tools::CalculateRMSE(const vector<VectorXd> &estimations,
 
 MatrixXd Tools::CalculateJacobian(const VectorXd& x_state)
 {
-  MatrixXd Hj(3,4);
+	MatrixXd Hj(3,4);
 	//recover state parameters
 	float px = x_state(0);
 	float py = x_state(1);
 	float vx = x_state(2);
 	float vy = x_state(3);
 
-  float rSq = px * px + py * py;
-  //check division by zero
-  if (fabs(rSq) < 0.0001)
-  {
-      std::cout << "Division by Zero" << std::endl;
-      Hj << 1.0, 0.0, 0.0, 0.0,
-      0.0, 1.0, 0.0, 0.0,
-      0.0, 0.0, 0.0, 0.0;
-      return Hj;
-  }
-  float r = sqrt(rSq);
-  float r32 = r * rSq; //pow(rSq, 3.0 / 2.0);
+	//check division by zero
+	if (fabs(px) < 0.0001 && fabs(py) < 0.0001)
+	{
+		px = 0.0001;
+		py = 0.0001;
+	}
+	float rSq = px * px + py * py;
+	if (fabs(rSq) < 0.0000002)
+	{
+		rSq = 0.0000002;
+	}
+	float r = sqrt(rSq);
 
-
+	float r32 = r * rSq; //pow(rSq, 3.0 / 2.0);
 
 	float h00 = px / r;
 	float h01 = py / r;
